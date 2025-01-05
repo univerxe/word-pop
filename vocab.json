@@ -1,0 +1,574 @@
+[
+    {
+        "Korean": "마크뷰",
+        "English": "Mark View"
+    },
+    {
+        "Korean": "1회체험",
+        "English": "One-Time Experience"
+    },
+    {
+        "Korean": "VAT별도",
+        "English": "VAT Excluded"
+    },
+    {
+        "Korean": "주베룩 스킨",
+        "English": "Juvederm Skin"
+    },
+    {
+        "Korean": "주름 보톡스",
+        "English": "Wrinkle Botox"
+    },
+    {
+        "Korean": "제오민",
+        "English": "Xeomin"
+    },
+    {
+        "Korean": "엘러간",
+        "English": "Allergan"
+    },
+    {
+        "Korean": "미간",
+        "English": "Glabella"
+    },
+    {
+        "Korean": "눈가주름",
+        "English": "Crow's Feet"
+    },
+    {
+        "Korean": "입가주름",
+        "English": "Smile Lines"
+    },
+    {
+        "Korean": "피코토닝",
+        "English": "Pico Toning"
+    },
+    {
+        "Korean": "피코지우개",
+        "English": "Pico Eraser"
+    },
+    {
+        "Korean": "기미",
+        "English": "Melasma"
+    },
+    {
+        "Korean": "기미주사",
+        "English": "Melasma Injection"
+    },
+    {
+        "Korean": "주근깨",
+        "English": "Freckles"
+    },
+    {
+        "Korean": "사각턱 보톡스",
+        "English": "Square Jaw Botox"
+    },
+    {
+        "Korean": "슈링크 유니버스 100샷",
+        "English": "Shurink Universe 100 Shots"
+    },
+    {
+        "Korean": "리니어지",
+        "English": "Lineage"
+    },
+    {
+        "Korean": "다이아리프팅 100샷",
+        "English": "Diamond Lifting 100 Shots"
+    },
+    {
+        "Korean": "올쎄라 100샷",
+        "English": "Ulthera 100 Shots"
+    },
+    {
+        "Korean": "인모드 FX 1부위",
+        "English": "InMode FX 1 Area"
+    },
+    {
+        "Korean": "리쥬란 힐러 1cc",
+        "English": "Rejuran Healer 1cc"
+    },
+    {
+        "Korean": "아쿠아필 2단계",
+        "English": "Aqua Peel Stage 2"
+    },
+    {
+        "Korean": "거드랑이 제모",
+        "English": "Armpit Hair Removal"
+    },
+    {
+        "Korean": "인중 제모",
+        "English": "Philtrum Hair Removal"
+    },
+    {
+        "Korean": "턱라인 제모",
+        "English": "Chin Line Hair Removal"
+    },
+    {
+        "Korean": "턱수염",
+        "English": "Beard"
+    },
+    {
+        "Korean": "콧수염",
+        "English": "Mustache"
+    },
+    {
+        "Korean": "구렛나루",
+        "English": "Sideburns"
+    },
+    {
+        "Korean": "브라질리언 (항문 제외)",
+        "English": "Brazilian (Excluding Anus)"
+    },
+    {
+        "Korean": "브라질리언 (항문 포함)",
+        "English": "Brazilian (Including Anus)"
+    },
+    {
+        "Korean": "비타민관리",
+        "English": "Vitamin Management"
+    },
+    {
+        "Korean": "모델링팩",
+        "English": "Modeling Pack"
+    },
+    {
+        "Korean": "엑셀브이",
+        "English": "Excel V"
+    },
+    {
+        "Korean": "엑셀브이제네시스",
+        "English": "Excel V Genesis"
+    },
+    {
+        "Korean": "밴스라인힐러",
+        "English": "Vance Line Healer"
+    },
+    {
+        "Korean": "PN",
+        "English": "Polynucleotide"
+    },
+    {
+        "Korean": "입술필러 무제한",
+        "English": "Unlimited Lip Filler"
+    },
+    {
+        "Korean": "1:1 맞춤 디자인",
+        "English": "1:1 Custom Design"
+    },
+    {
+        "Korean": "입꼬리 필러",
+        "English": "Lip Corner Filler"
+    },
+    {
+        "Korean": "동안필러",
+        "English": "Youthful Filler"
+    },
+    {
+        "Korean": "국산동안필러",
+        "English": "Domestic Youthful Filler"
+    },
+    {
+        "Korean": "수입동안필러",
+        "English": "Imported Youthful Filler"
+    },
+    {
+        "Korean": "무제한 애교필러",
+        "English": "Unlimited Aegyo Filler"
+    },
+    {
+        "Korean": "눈밑필러",
+        "English": "Under-Eye Filler"
+    },
+    {
+        "Korean": "관자",
+        "English": "Temple"
+    },
+    {
+        "Korean": "마리오넷",
+        "English": "Marionette Lines"
+    },
+    {
+        "Korean": "염증 주사",
+        "English": "Inflammation Injection"
+    },
+    {
+        "Korean": "목주름",
+        "English": "Neck Wrinkle"
+    },
+    {
+        "Korean": "스킨부스터",
+        "English": "Skin Booster"
+    },
+    {
+        "Korean": "엑소좀",
+        "English": "Exosome"
+    },
+    {
+        "Korean": "통증최소 엑소좀",
+        "English": "Minimized Pain Exosome"
+    },
+    {
+        "Korean": "asco엑소좀",
+        "English": "ASCO Exosome"
+    },
+    {
+        "Korean": "윤곽주사",
+        "English": "Contour Injection"
+    },
+    {
+        "Korean": "밴딩주사",
+        "English": "Banding Injection"
+    },
+    {
+        "Korean": "캐번실리프팅",
+        "English": "Cavernous Lifting"
+    },
+    {
+        "Korean": "여드름 아그네스",
+        "English": "Acne Agnes"
+    },
+    {
+        "Korean": "승모근 보톡스",
+        "English": "Trapezius Botox"
+    },
+    {
+        "Korean": "콜라스터 오리지널",
+        "English": "Collagen Original"
+    },
+    {
+        "Korean": "이중턱",
+        "English": "Double Chin"
+    },
+    {
+        "Korean": "침샘보톡스",
+        "English": "Salivary Gland Botox"
+    },
+    {
+        "Korean": "노메스틱",
+        "English": "Domestic Botox"
+    },
+    {
+        "Korean": "뿌띠V3",
+        "English": "Petit V3"
+    },
+    {
+        "Korean": "엘라라 덕보톡스",
+        "English": "Ellara Neck Botox"
+    },
+    {
+        "Korean": "스킨보톡스",
+        "English": "Skin Botox"
+    },
+    {
+        "Korean": "모공톡신",
+        "English": "Pore Toxin"
+    },
+    {
+        "Korean": "주름모공톡신",
+        "English": "Wrinkle and Pore Toxin"
+    },
+    {
+        "Korean": "순정주사 (순정모공톡신)",
+        "English": "Pure Injection (Pure Pore Toxin)"
+    },
+    {
+        "Korean": "피지 분비 조절",
+        "English": "Sebum Secretion Control"
+    },
+    {
+        "Korean": "넓어진 모공 축소",
+        "English": "Enlarged Pore Reduction"
+    },
+    {
+        "Korean": "리프팅 효과",
+        "English": "Lifting Effect"
+    },
+    {
+        "Korean": "종아리",
+        "English": "Calf"
+    },
+    {
+        "Korean": "다한증",
+        "English": "Hyperhidrosis"
+    },
+    {
+        "Korean": "손바닥",
+        "English": "Palm"
+    },
+    {
+        "Korean": "발바닥",
+        "English": "Sole"
+    },
+    {
+        "Korean": "색소(침착)",
+        "English": "Pigmentation"
+    },
+    {
+        "Korean": "홍조",
+        "English": "Redness"
+    },
+    {
+        "Korean": "혈관",
+        "English": "Blood Vessel"
+    },
+    {
+        "Korean": "잔주름",
+        "English": "Fine Wrinkles"
+    },
+    {
+        "Korean": "레디어스",
+        "English": "Radiesse"
+    },
+    {
+        "Korean": "라라필",
+        "English": "Larafil"
+    },
+    {
+        "Korean": "피부 스케일링",
+        "English": "Skin Scaling"
+    },
+    {
+        "Korean": "압출",
+        "English": "Extraction"
+    },
+    {
+        "Korean": "LED 재생레이저",
+        "English": "LED Regeneration Laser"
+    },
+    {
+        "Korean": "크라이오 진정관리",
+        "English": "Cryo Soothing Care"
+    },
+    {
+        "Korean": "이온자임 미백관리",
+        "English": "Ionzyme Whitening Care"
+    },
+    {
+        "Korean": "플라센타",
+        "English": "Placenta"
+    },
+    {
+        "Korean": "신데렐라",
+        "English": "Cinderella"
+    },
+    {
+        "Korean": "블랙필",
+        "English": "Black Peel"
+    },
+    {
+        "Korean": "백옥주사",
+        "English": "Glutathione Injection"
+    },
+    {
+        "Korean": "태반주사",
+        "English": "Placenta Injection"
+    },
+    {
+        "Korean": "점제거",
+        "English": "Mole Removal"
+    },
+    {
+        "Korean": "비립종",
+        "English": "Milia"
+    },
+    {
+        "Korean": "한관종",
+        "English": "Syringoma"
+    },
+    {
+        "Korean": "쥐젖",
+        "English": "Skin Tag"
+    },
+    {
+        "Korean": "편평사마귀",
+        "English": "Flat Wart"
+    },
+    {
+        "Korean": "턱끝",
+        "English": "Chin Tip"
+    },
+    {
+        "Korean": "팔자주름",
+        "English": "Nasolabial Fold"
+    },
+    {
+        "Korean": "비대칭 교정",
+        "English": "Asymmetry Correction"
+    },
+    {
+        "Korean": "반영구",
+        "English": "Semi-Permanent"
+    },
+    {
+        "Korean": "국산색소",
+        "English": "Domestic Pigment"
+    },
+    {
+        "Korean": "원터치 3D 엠보논썹",
+        "English": "One-Touch 3D Embroidery Eyebrows"
+    },
+    {
+        "Korean": "원터치 절막아이라인",
+        "English": "One-Touch Film-Free Eyeliner"
+    },
+    {
+        "Korean": "리터치",
+        "English": "Retouch"
+    },
+    {
+        "Korean": "그라데이션 눈썹",
+        "English": "Gradient Eyebrows"
+    },
+    {
+        "Korean": "4D 네츄럴 눈썹",
+        "English": "4D Natural Eyebrows"
+    },
+    {
+        "Korean": "눈매교정 아이라인",
+        "English": "Eyeliner for Eye Shape Correction"
+    },
+    {
+        "Korean": "틴트입술",
+        "English": "Tinted Lips"
+    },
+    {
+        "Korean": "아르기닌주사",
+        "English": "Arginine Injection"
+    },
+    {
+        "Korean": "티타늄리프팅",
+        "English": "Titanium Lifting"
+    },
+    {
+        "Korean": "써마지 FLX",
+        "English": "Thermage FLX"
+    },
+    {
+        "Korean": "울쎄오",
+        "English": "Ultherapy"
+    },
+    {
+        "Korean": "불독머리프팅",
+        "English": "Bulldog Neck Lifting"
+    },
+    {
+        "Korean": "브이로리프팅",
+        "English": "V-Lifting"
+    },
+    {
+        "Korean": "물광주사",
+        "English": "Skin Hydration Injection"
+    },
+    {
+        "Korean": "팔상완",
+        "English": "Upper Arm"
+    },
+    {
+        "Korean": "팔하완",
+        "English": "Forearm"
+    },
+    {
+        "Korean": "나비존",
+        "English": "Butterfly Zone"
+    },
+    {
+        "Korean": "모공좁쭐관리",
+        "English": "Pore Shrink Management"
+    },
+    {
+        "Korean": "핑크필",
+        "English": "Pink Peel"
+    },
+    {
+        "Korean": "잡티",
+        "English": "Blemish"
+    },
+    {
+        "Korean": "뉴라덤",
+        "English": "Neuroderm"
+    },
+    {
+        "Korean": "피코프락셀",
+        "English": "Pico Fraxel"
+    },
+    {
+        "Korean": "리쥬란 아이",
+        "English": "Rejuran Eye"
+    },
+    {
+        "Korean": "산소필",
+        "English": "Oxygen Peel"
+    },
+    {
+        "Korean": "오로라 앰플",
+        "English": "Aurora Ampoule"
+    },
+    {
+        "Korean": "거뭄주사",
+        "English": "Brightening Injection"
+    },
+    {
+        "Korean": "더마샤인",
+        "English": "Derma Shine"
+    },
+    {
+        "Korean": "NCTF 135 필로르가",
+        "English": "NCTF 135 Filorga"
+    },
+    {
+        "Korean": "거드랑이 미백 토닝",
+        "English": "Armpit Whitening Toning"
+    },
+    {
+        "Korean": "귀민쌤",
+        "English": "Expert Gue-min"
+    },
+    {
+        "Korean": "자갈턱",
+        "English": "Pebble Chin"
+    },
+    {
+        "Korean": "콜라스터 브라이트닝",
+        "English": "Collagen Brightening"
+    },
+    {
+        "Korean": "콜라스터 아크케어",
+        "English": "Collagen Arc Care"
+    },
+    {
+        "Korean": "내성",
+        "English": "Tolerance"
+    },
+    {
+        "Korean": "PLLA",
+        "English": "Poly-L-Lactic Acid"
+    },
+    {
+        "Korean": "부작용",
+        "English": "Side Effect"
+    },
+    {
+        "Korean": "의료진",
+        "English": "Medical Staff"
+    },
+    {
+        "Korean": "젠틀맥스프로플러스",
+        "English": "GentleMax Pro Plus"
+    },
+    {
+        "Korean": "하관",
+        "English": "Lower Face"
+    },
+    {
+        "Korean": "광채",
+        "English": "Radiance"
+    },
+    {
+        "Korean": "제로팻",
+        "English": "Zero Fat"
+    },
+    {
+        "Korean": "검버섯 (지루각화증)",
+        "English": "Age Spots (Seborrheic Keratosis)"
+    }
+]
