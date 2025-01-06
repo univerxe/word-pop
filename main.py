@@ -141,13 +141,6 @@ async def unsub_user(user_id) -> str:
 async def cmd_vocab(msg: types.Message):
     formatted_text = '\n'.join([f"{k} - {e}" for k, e in list(zip(korean, english))[:]])
     await msg.answer(formatted_text)
-    
-async def send_notifications():
-    while True:
-        for user_id in subscribed_users:
-            await bot.send_message(user_id, "Hello")    
-        
-        await asyncio.sleep(5)
         
 @dp.message_handler(commands=['cmd'])
 async def cmd_help(msg: types.Message):
@@ -163,8 +156,5 @@ async def cmd_help(msg: types.Message):
     )
     await msg.answer(help_text)
 
-async def on_startup(_):
-    asyncio.create_task(send_notifications())
-
 if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
+    executor.start_polling(dp, skip_updates=True)
