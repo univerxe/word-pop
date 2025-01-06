@@ -1,5 +1,6 @@
 from aiogram import types, Dispatcher, Bot, executor
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+import aiofiles
 import json, asyncio, os, random
 from dotenv import load_dotenv
 from aiogram.utils.executor import start_webhook
@@ -9,8 +10,6 @@ token = os.getenv('WORD_POP_TOKEN')
 
 bot = Bot(token)
 dp = Dispatcher(bot)
-
-subscribed_users = []
 
 with open('./vocab.json', 'r', encoding="utf-8") as file:
     data = json.load(file)
