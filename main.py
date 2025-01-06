@@ -2,6 +2,7 @@ from aiogram import types, Dispatcher, Bot, executor
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 import json, asyncio, os, random
 from dotenv import load_dotenv
+from aiogram.utils.executor import start_webhook
 
 load_dotenv()
 token = os.getenv('WORD_POP_TOKEN')
@@ -30,30 +31,10 @@ async def cmd_start(msg: types.Message):
         "/learn - Learn new words.\n"
         "/sub - Start receiving notifications.\n"
         "/unsub - Stop receiving notifications.\n"
-        "/help - Get a list of available commands.\n\n"
+        "/cmd - Get a list of available commands.\n\n"
         "Let me know how I can assist you! 😊"
     )
     await msg.answer(welcome_text)
-
-@dp.message_handler(commands=['sub'])
-async def cmd_subscribe(msg: types.Message):
-    user_id = msg.from_user.id
-    if user_id not in subscribed_users:
-        subscribed_users.append(user_id)
-        await msg.answer(
-        f"You have successfully subscribed to hourly notifications! 🎉 \n\n"
-        )
-    else:
-        await msg.answer("You are already subscribed to notifications! 😊")
-        
-@dp.message_handler(commands=['unsub'])
-async def cmd_unsubscribe(msg: types.Message):
-    user_id = msg.from_user.id
-    if user_id in subscribed_users:
-        subscribed_users.remove(user_id)
-        await msg.answer("You have successfully unsubscribed from notifications! 😢")
-    else:
-        await msg.answer("You are not subscribed to notifications! 😊")
 
 quiz_active = {}  # {user_id: True}
 quiz_state = {}  # {user_id: {question: "", answer: "", options: []}}
@@ -71,9 +52,9 @@ async def cmd_quiz(msg: types.Message):
     user_id = msg.from_user.id
     quiz_active[user_id] = True
     quiz_response = generate_quiz_question()
-    print(quiz_response)
+    # print(quiz_response)
     quiz_state[user_id] = quiz_response
-    print(quiz_state)
+    # print(quiz_state)
     await send_quiz_question(msg, quiz_response["question"], quiz_response["options"])
 
 async def send_quiz_question(msg, question, options):
@@ -114,6 +95,47 @@ async def cmd_quit(msg: types.Message):
         await msg.answer("Quiz ended. Thanks for playing!")
     else:
         await msg.answer("No active quiz to quit.")
+        
+sub_users = {}
+
+@dp.message_handler(commands=['sub'])
+async def cmd_subscribe(msg: types.Message):
+    user_id = msg.from_user.id
+    response = await sub_user(bot, user_id)
+    await msg.answer(response)
+    
+@dp.message_handler(commands=['unsub'])
+async def cmd_unsubscribe(msg: types.Message):
+    user_id = msg.from_user.id
+    response = await unsub_user(user_id)
+    await msg.answer(response)
+
+async def notify_user(bot, user_id):
+    try:
+        while True:
+            await bot.send_message(user_id, "⏰ Don't forget to practice your vocabulary!")
+            await asyncio.sleep(5)
+    except asyncio.CancelledError:
+        pass
+    except Exception as e:
+        print(e)
+        
+async def sub_user(bot, user_id) -> str:
+    if user_id not in sub_users:
+        sub_users[user_id] = asyncio.create_task(notify_user(bot, user_id))
+
+        return (f"You have successfully subscribed to hourly notifications! 🎉"
+        )
+    else:
+        return ("You are already subscribed to notifications! 😊")
+    
+async def unsub_user(user_id) -> str:
+    if user_id in sub_users:
+        sub_users[user_id].cancel()
+        del sub_users[user_id]
+        return ("You have successfully unsubscribed from notifications! 😢")
+    else:
+        return ("You are not subscribed to notifications! 😊")
 
 @dp.message_handler(commands=['learn'])
 async def cmd_vocab(msg: types.Message):
