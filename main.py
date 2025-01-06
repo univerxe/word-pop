@@ -25,17 +25,17 @@ async def cmd_start(msg: types.Message):
         "✅ Customize notification intervals with a simple command.\n"
         "✅ Start or stop notifications anytime you want.\n\n"
         "📚 Commands:\n"
-        "/subscribe - Start receiving notifications.\n"
-        "/unsubscribe - Stop receiving notifications.\n"
         "/quiz - Start quiz.\n"
         "/quit - Quit quiz.\n"
         "/learn - Learn new words.\n"
+        "/sub - Start receiving notifications.\n"
+        "/unsub - Stop receiving notifications.\n"
         "/help - Get a list of available commands.\n\n"
         "Let me know how I can assist you! 😊"
     )
     await msg.answer(welcome_text)
 
-@dp.message_handler(commands=['subscribe'])
+@dp.message_handler(commands=['sub'])
 async def cmd_subscribe(msg: types.Message):
     user_id = msg.from_user.id
     if user_id not in subscribed_users:
@@ -46,7 +46,7 @@ async def cmd_subscribe(msg: types.Message):
     else:
         await msg.answer("You are already subscribed to notifications! 😊")
         
-@dp.message_handler(commands=['unsubscribe'])
+@dp.message_handler(commands=['unsub'])
 async def cmd_unsubscribe(msg: types.Message):
     user_id = msg.from_user.id
     if user_id in subscribed_users:
@@ -55,35 +55,26 @@ async def cmd_unsubscribe(msg: types.Message):
     else:
         await msg.answer("You are not subscribed to notifications! 😊")
 
-current_question = None
-correct_answer = None
-current_options = None
 quiz_active = {}  # {user_id: True}
+quiz_state = {}  # {user_id: {question: "", answer: "", options: []}}
 
-def generate_quiz_question() -> tuple:
-    global current_question, correct_answer, current_options
+def generate_quiz_question() -> dict:
     random_index = random.randint(0, len(data)-1)
-    current_question = korean[random_index]
-    correct_answer = english[random_index]
-    current_options = random.sample([e for e in english if e != correct_answer], 3) + [correct_answer]
-    random.shuffle(current_options)
-    return current_question, correct_answer, current_options
+    question = korean[random_index]
+    answer = english[random_index]
+    options = random.sample([e for e in english if e != answer], 3) + [answer]
+    random.shuffle(options)
+    return {"question": question, "answer": answer, "options": options}
 
 @dp.message_handler(commands=['quiz']) 
 async def cmd_quiz(msg: types.Message):
     user_id = msg.from_user.id
     quiz_active[user_id] = True
-    question, answer, options = generate_quiz_question()
-    await send_quiz_question(msg, question, options)
-
-@dp.message_handler(commands=['quit'])
-async def cmd_quit(msg: types.Message):
-    user_id = msg.from_user.id
-    if user_id in quiz_active:
-        del quiz_active[user_id]
-        await msg.answer("Quiz ended. Thanks for playing!")
-    else:
-        await msg.answer("No active quiz to quit.")
+    quiz_response = generate_quiz_question()
+    print(quiz_response)
+    quiz_state[user_id] = quiz_response
+    print(quiz_state)
+    await send_quiz_question(msg, quiz_response["question"], quiz_response["options"])
 
 async def send_quiz_question(msg, question, options):
     keyboard = InlineKeyboardMarkup(row_width=2)
@@ -99,20 +90,30 @@ async def handle_quiz_callback(callback_query: types.CallbackQuery):
         return
 
     selected_option = callback_query.data.split("_")[1]
-    if selected_option == correct_answer:
+    current_quiz = quiz_state.get(user_id, {})
+    if selected_option == current_quiz.get("answer"):
         response = "✅ Correct!"
     else:
-        response = f"❌ Incorrect! The correct answer was: {correct_answer}"
+        response = f"❌ Incorrect! The correct answer was: {current_quiz.get('answer')}"
 
     await callback_query.message.edit_text(
         f"{callback_query.message.text}\n\n{selected_option}\n\n{response}"
     )
     
-    # Automatically send next question after a brief delay
     await asyncio.sleep(2)
     if user_id in quiz_active:
-        question, answer, options = generate_quiz_question()
-        await send_quiz_question(callback_query.message, question, options)
+        quiz_response = generate_quiz_question()
+        quiz_state[user_id] = quiz_response
+        await send_quiz_question(callback_query.message, quiz_response["question"], quiz_response["options"])
+
+@dp.message_handler(commands=['quit'])
+async def cmd_quit(msg: types.Message):
+    user_id = msg.from_user.id
+    if user_id in quiz_active:
+        del quiz_active[user_id]
+        await msg.answer("Quiz ended. Thanks for playing!")
+    else:
+        await msg.answer("No active quiz to quit.")
 
 @dp.message_handler(commands=['learn'])
 async def cmd_vocab(msg: types.Message):
@@ -126,16 +127,16 @@ async def send_notifications():
         
         await asyncio.sleep(5)
         
-@dp.message_handler(commands=['help'])
+@dp.message_handler(commands=['cmd'])
 async def cmd_help(msg: types.Message):
     help_text = (
         "📚 Here's a list of available commands:\n\n"
-        "/subscribe - Start receiving notifications.\n"
-        "/unsubscribe - Stop receiving notifications.\n"
         "/quiz - Start quiz.\n"
         "/quit - Quit quiz.\n"
         "/learn - Learn new words.\n"
-        "/help - Get a list of available commands.\n\n"
+        "/sub - Start receiving notifications.\n"
+        "/unsub - Stop receiving notifications.\n"
+        "/cmd - Get a list of available commands.\n\n"
         "Let me know how I can assist you! 😊"
     )
     await msg.answer(help_text)
