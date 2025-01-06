@@ -4,4 +4,28 @@
         "options": ["Berlin", "Madrid", "Paris", "Rome"],
         "answer": "Paris"
     }
+    ,
+    {
+        "question": "What is the capital of South Korea?",
+        "options": ["Berlin", "Madrid", "Paris", "Rome"],
+        "answer": "Paris"
+    }
+    ,
+    {
+        "question": "What is the capital of Russia?",
+        "options": ["Berlin", "Madrid", "Paris", "Rome"],
+        "answer": "Paris"
+    }
+    ,
+    {
+        "question": "What is the capital of Nepal?",
+        "options": ["Berlin", "Madrid", "Paris", "Rome"],
+        "answer": "Paris"
+    }
+    ,
+    {
+        "question": "What is the capital of France?",
+        "options": ["Berlin", "Madrid", "Paris", "Rome"],
+        "answer": "Paris"
+    }
 ]
