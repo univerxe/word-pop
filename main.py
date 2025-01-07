@@ -113,7 +113,7 @@ async def notify_user(bot, user_id):
     try:
         while True:
             await bot.send_message(user_id, "⏰ Don't forget to practice your vocabulary!")
-            await asyncio.sleep(5)
+            await asyncio.sleep(43200)
     except asyncio.CancelledError:
         pass
     except Exception as e:
