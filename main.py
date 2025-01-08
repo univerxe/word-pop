@@ -11,21 +11,22 @@ token = os.getenv('WORD_POP_TOKEN')
 bot = Bot(token)
 dp = Dispatcher(bot)
 
-with open('./vocab.json', 'r', encoding="utf-8") as file:
+with open('./vocab_en_ru.json', 'r', encoding="utf-8") as file:
     data = json.load(file)
     korean = [kr["Korean"] for kr in data ]
     english = [en["English"] for en in data]
-
+    russian = [ru["Russian"] for ru in data]
+    
 @dp.message_handler(commands=['start'])
 async def cmd_start(msg: types.Message): 
     welcome_text = (
         f"👋 Welcome {msg.from_user.first_name} to the Word Pop Bot!\n\n"
         "Here's what I can do for you:\n"
         "✅ Send hourly notifications for quiz to keep you on track.\n"
-        "✅ Customize notification intervals with a simple command.\n"
         "✅ Start or stop notifications anytime you want.\n\n"
         "📚 Commands:\n"
-        "/quiz - Start quiz.\n"
+        "/quiz - Start quiz in English.\n"
+        "/quizru - Start quiz in Russian.\n"
         "/quit - Quit quiz.\n"
         "/learn - Learn new words.\n"
         "/sub - Start receiving notifications.\n"
@@ -36,24 +37,36 @@ async def cmd_start(msg: types.Message):
     await msg.answer(welcome_text)
 
 quiz_active = {}  # {user_id: True}
-quiz_state = {}  # {user_id: {question: "", answer: "", options: []}}
+quiz_state = {}  # {user_id: {question: "", answer: "", options: [], lang: ""}}
 
-def generate_quiz_question() -> dict:
+def generate_quiz_question(lang) -> dict:
     random_index = random.randint(0, len(data)-1)
     question = korean[random_index]
-    answer = english[random_index]
-    options = random.sample([e for e in english if e != answer], 3) + [answer]
+    
+    if lang == "ru":
+        answer = russian[random_index]
+        options = random.sample([r for r in russian if r != answer], 3) + [answer]
+    else:
+        answer = english[random_index]
+        options = random.sample([e for e in english if e != answer], 3) + [answer]
+        
     random.shuffle(options)
-    return {"question": question, "answer": answer, "options": options}
+    return {"question": question, "answer": answer, "options": options, "lang": lang}
 
-@dp.message_handler(commands=['quiz']) 
+@dp.message_handler(commands=['quiz'])
 async def cmd_quiz(msg: types.Message):
     user_id = msg.from_user.id
     quiz_active[user_id] = True
-    quiz_response = generate_quiz_question()
-    # print(quiz_response)
+    quiz_response = generate_quiz_question("en")
     quiz_state[user_id] = quiz_response
-    # print(quiz_state)
+    await send_quiz_question(msg, quiz_response["question"], quiz_response["options"])
+    
+@dp.message_handler(commands=['quizru'])
+async def cmd_quiz_ru(msg: types.Message):
+    user_id = msg.from_user.id
+    quiz_active[user_id] = True
+    quiz_response = generate_quiz_question("ru")
+    quiz_state[user_id] = quiz_response
     await send_quiz_question(msg, quiz_response["question"], quiz_response["options"])
 
 async def send_quiz_question(msg, question, options):
@@ -82,7 +95,7 @@ async def handle_quiz_callback(callback_query: types.CallbackQuery):
     
     await asyncio.sleep(2)
     if user_id in quiz_active:
-        quiz_response = generate_quiz_question()
+        quiz_response = generate_quiz_question(current_quiz["lang"])
         quiz_state[user_id] = quiz_response
         await send_quiz_question(callback_query.message, quiz_response["question"], quiz_response["options"])
 
