@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 from aiogram.utils.executor import start_webhook
 
 load_dotenv()
-token = os.getenv('WORD_POP_TOKEN')
+# token = os.getenv('WORD_POP_TOKEN')
+token = os.getenv('TEST_BOT_TOKEN')
 
 bot = Bot(token)
 dp = Dispatcher(bot)
@@ -17,24 +18,96 @@ with open('./vocab_en_ru.json', 'r', encoding="utf-8") as file:
     english = [en["English"] for en in data]
     russian = [ru["Russian"] for ru in data]
     
+messages = {
+    "welcome": {
+        "en": '''👋 Welcome {name} to the Word Pop Bot!\n\n
+        Here's what I can do for you:\n
+        ✅ Send hourly notifications for quiz to keep you on track.\n
+        ✅ Start or stop notifications anytime you want.\n\n
+        📚 Commands:\n
+        /quiz - Start quiz in English.\n
+        /quizru - Start quiz in Russian.\n
+        /quit - Quit quiz.\n
+        /learn - Learn new words.\n
+        /sub - Start receiving notifications.\n
+        /unsub - Stop receiving notifications.\n
+        /cmd - Get a list of available commands.\n\n
+        Let me know how I can assist you! 😊''',
+        
+        "ru": '''👋 Добро пожаловать {name} в бота Word Pop!\n\n
+        Вот что я могу сделать для вас:\n
+        ✅ Отправлять уведомления для викторины каждый час.\n
+        ✅ Включать и выключать уведомления в любое время.\n\n
+        📚 Команды:\n
+        /quiz - Начать викторину на английском.\n
+        /quizru - Начать викторину на русском.\n
+        /quit - Закончить викторину.\n
+        /learn - Изучать новые слова.\n
+        /sub - Включить уведомления.\n
+        /unsub - Выключить уведомления.\n
+        /cmd - Получить список команд.\n\n
+        Дайте мне знать, чем я могу помочь! 😊''',
+        
+        "ko": '''👋 Word Pop Bot에 오신 것을 환영합니다 {name}님!\n\n
+        제가 할 수 있는 일입니다:\n
+        ✅ 매시간 퀴즈 알림을 보내드립니다.\n
+        ✅ 언제든지 알림을 시작하거나 중지할 수 있습니다.\n\n
+        📚 명령어:\n
+        /quiz - 영어 퀴즈 시작.\n
+        /quizru - 러시아어 퀴즈 시작.\n
+        /quit - 퀴즈 종료.\n
+        /learn - 새로운 단어 학습.\n
+        /sub - 알림 시작.\n
+        /unsub - 알림 중지.\n
+        /cmd - 사용 가능한 명령어 목록.\n\n
+        도움이 필요하시면 알려주세요! 😊'''
+    },
+    "quiz": { 
+        "en": "Which word correctly translate to Korean word: '{question}'",
+        "ru": "Какое слово правильно переводится на корейский язык: '{question}'",
+        "ko": "한국어 단어 '{question}'의 올바른 번역은 무엇입니까?"
+    },
+    "correct": {
+        "en": "✅ Correct!",
+        "ru": "✅ Правильно!",
+        "ko": "✅ 정답!"
+    },
+    "incorrect": {
+        "en": "❌ Incorrect! The correct answer was: {answer}",
+        "ru": "❌ Неверно! Правильный ответ: {answer}",
+        "ko": "❌ 틀렸습니다! 정답은: {answer}"
+    }
+}
+
+user_language = {}  # {user_id: "en"}
+    
 @dp.message_handler(commands=['start'])
 async def cmd_start(msg: types.Message): 
-    welcome_text = (
-        f"👋 Welcome {msg.from_user.first_name} to the Word Pop Bot!\n\n"
-        "Here's what I can do for you:\n"
-        "✅ Send hourly notifications for quiz to keep you on track.\n"
-        "✅ Start or stop notifications anytime you want.\n\n"
-        "📚 Commands:\n"
-        "/quiz - Start quiz in English.\n"
-        "/quizru - Start quiz in Russian.\n"
-        "/quit - Quit quiz.\n"
-        "/learn - Learn new words.\n"
-        "/sub - Start receiving notifications.\n"
-        "/unsub - Stop receiving notifications.\n"
-        "/cmd - Get a list of available commands.\n\n"
-        "Let me know how I can assist you! 😊"
-    )
+    user_id = msg.from_user.id
+    language = msg.from_user.language_code
+    language = user_language.get(user_id, language)
+    if language in ['ko', 'ko-KR', 'kor']: language = 'ko'
+    elif language in ['ru', 'ru-RU', 'rus']: language = 'ru'
+    user_language[user_id] = language
+    welcome_text = messages["welcome"].get(language, messages["welcome"]["en"]).format(name=msg.from_user.first_name)
+    
     await msg.answer(welcome_text)
+
+@dp.message_handler(commands=['setlanguage'])
+async def cmd_set_language(msg: types.Message):
+    user_id = msg.from_user.id
+    try:
+        language = msg.text.split()[1].lower()[:2]
+        # print(language)
+        if language in ["en", "ru", "ko"]:
+            user_language[user_id] = language
+            await msg.answer(f"Language set to: {'English 🇺🇸' if language == 'en' else 'Korean 🇰🇷' if language == 'ko' else 'Russian 🇷🇺'}")
+        else:
+            user_language[user_id] = "en"
+            await msg.answer(f"Invalid language. Supported languages are: English 🇺🇸, Korean 🇰🇷, Russian 🇷🇺")
+    except IndexError:
+        user_language[user_id] = "en"
+        await msg.answer("Please specify a language 🇺🇸🇰🇷🇷🇺 : Eg. /setlanguage korean")
 
 quiz_active = {}  # {user_id: True}
 quiz_state = {}  # {user_id: {question: "", answer: "", options: [], lang: ""}}
@@ -57,7 +130,7 @@ def generate_quiz_question(lang) -> dict:
 async def cmd_quiz(msg: types.Message):
     user_id = msg.from_user.id
     quiz_active[user_id] = True
-    quiz_response = generate_quiz_question("en")
+    quiz_response = generate_quiz_question(user_language.get(user_id, "en"))
     quiz_state[user_id] = quiz_response
     await send_quiz_question(msg, quiz_response["question"], quiz_response["options"])
     
@@ -65,15 +138,17 @@ async def cmd_quiz(msg: types.Message):
 async def cmd_quiz_ru(msg: types.Message):
     user_id = msg.from_user.id
     quiz_active[user_id] = True
-    quiz_response = generate_quiz_question("ru")
+    quiz_response = generate_quiz_question(user_language.get(user_id, "ru"))
     quiz_state[user_id] = quiz_response
     await send_quiz_question(msg, quiz_response["question"], quiz_response["options"])
 
 async def send_quiz_question(msg, question, options):
     keyboard = InlineKeyboardMarkup(row_width=2)
-    buttons = [InlineKeyboardButton(text=opt, callback_data=f"quiz_{opt}") for opt in options]
+    buttons = [InlineKeyboardButton(text=opt, callback_data=f"quiz_{i}") for i, opt in enumerate(options)]
     keyboard.add(*buttons)
-    await msg.answer(f"Which word correctly translate to Korean word: '{question}'", reply_markup=keyboard)
+    lang = user_language.get(msg.from_user.id, "en")
+    quiz_text = messages["quiz"][lang].format(question=question)
+    await msg.answer(quiz_text, reply_markup=keyboard)
     
 @dp.callback_query_handler(lambda c: c.data.startswith("quiz_"))
 async def handle_quiz_callback(callback_query: types.CallbackQuery):
@@ -107,6 +182,11 @@ async def cmd_quit(msg: types.Message):
         await msg.answer("Quiz ended. Thanks for playing!")
     else:
         await msg.answer("No active quiz to quit.")
+        
+@dp.message_handler(commands=['lookup'])
+async def cmd_lookup(msg: types.Message):
+    await msg.answer("Please send me the work want to look up.")
+    await msg.answer("🔍 You can lookup words in English or Russian.")
         
 sub_users = {}
 
