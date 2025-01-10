@@ -98,9 +98,9 @@ Here's how I can help you achieve your language learning goals:
         "ko": "아직 알림을 구독하고 있지 않아요. 구독해 보실래요?"
     },
     "setlanguage": {
-        "en": "🌍 Language set to {language}. Enjoy your experience!",
-        "ru": "🌍 Язык установлен на {language}. Наслаждайтесь вашим опытом!",
-        "ko": "언어가 {language}로 설정되었어요! 이제 더 편하게 사용하세요."
+        "en": "Language set to English 🇺🇸. Enjoy your experience!",
+        "ru": "Язык установлен на русский 🇷🇺. Наслаждайтесь вашим опытом!",
+        "ko": "언어가 한국어로 🇰🇷 설정되었어요! 이제 더 편하게 사용하세요."
     },
     "invalid_language": {
         "en": "❌ Invalid language. Please select a valid one to continue.",

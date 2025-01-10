@@ -43,7 +43,7 @@ async def cmd_set_language(msg: types.Message):
         language = msg.text.split()[1].lower()[:2]
         if language in ["en", "ru", "ko"]:
             user_language[user_id] = language
-            await msg.answer(get_message(user_id, "setlanguage", language=language))
+            await msg.answer(get_message(user_id, "setlanguage"))
         else:
             user_language[user_id] = user_language.get(user_id, "en")
             await msg.answer(get_message(user_id, "invalid_language"))
