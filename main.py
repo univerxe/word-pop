@@ -21,6 +21,7 @@ with open('./vocab_en_ru.json', 'r', encoding="utf-8") as file:
 
 def get_message(user_id, key, **kwargs):
     lang = user_language.get(user_id, "en")
+    # print(lang)
     return messages[key].get(lang, messages[key]["en"]).format(**kwargs)
 
 user_language = {}  # {user_id: "en"}
@@ -30,6 +31,7 @@ async def cmd_start(msg: types.Message):
     user_id = msg.from_user.id
     language = msg.from_user.language_code
     language = user_language.get(user_id, language)
+    # print(language)  
     if language in ['ko', 'ko-KR', 'kor']: language = 'ko'
     elif language in ['ru', 'ru-RU', 'rus']: language = 'ru'
     user_language[user_id] = language
@@ -82,6 +84,7 @@ async def send_quiz_question(msg, question, options):
     buttons = [InlineKeyboardButton(text=opt, callback_data=f"quiz_{i}") for i, opt in enumerate(options)]
     keyboard.add(*buttons)
     lang = user_language.get(msg.from_user.id, "en")
+    if lang not in ['ko', 'ru', 'en']: lang = 'en'
     quiz_text = messages["quiz"][lang].format(question=question)
     await msg.answer(quiz_text, reply_markup=keyboard)
     
@@ -106,7 +109,7 @@ async def handle_quiz_callback(callback_query: types.CallbackQuery):
         f"{callback_query.message.text}\n\n{selected_option}\n\n{response}"
     )
     
-    await asyncio.sleep(2)
+    await asyncio.sleep(1.5)
     if user_id in quiz_active:
         quiz_response = generate_quiz_question(current_quiz["lang"])
         quiz_state[user_id] = quiz_response
