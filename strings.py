@@ -1,47 +1,48 @@
-messages = {
+messages = {        
     "welcome": {
-        "en": '''👋 Welcome {name} to the Word Pop Bot!\n\n
-        Here's what I can do for you:\n
-        ✅ Send hourly notifications for quiz to keep you on track.\n
-        ✅ Start or stop notifications anytime you want.\n\n
-        📚 Commands:\n
-        /quiz - Start quiz in English.\n
-        /quizru - Start quiz in Russian.\n
-        /quit - Quit quiz.\n
-        /learn - Learn new words.\n
-        /sub - Start receiving notifications.\n
-        /unsub - Stop receiving notifications.\n
-        /cmd - Get a list of available commands.\n\n
-        Let me know how I can assist you! 😊''',
+    "en": '''👋 Welcome, {name}, to the Word Pop Bot! 🌟\n
+Here's how I can help you achieve your language learning goals:
+✅ Send periodic quiz notifications to keep you motivated and on track.
+✅ Flexible controls to start or stop notifications anytime.\n
+📚 Available Commands:
+❓ /quiz - Start a fun and interactive quiz.
+🚶‍♂️ /quit - Exit the current quiz session.
+🌍 /setlanguage - Change your learning language (eg., /setlanguage korean).
+🔤 /learn - Expand your vocabulary with new words.
+🔎 /lookup - Find translations or definitions in your personal dictionary.
+🔔 /sub - Enable notifications for regular reminders.
+🔕 /unsub - Disable notifications whenever you want.\n
+🎯 Ready to dive into language learning? Let me know how I can assist you! 😊''',
         
-        "ru": '''👋 Добро пожаловать {name} в бота Word Pop!\n\n
-        Вот что я могу сделать для вас:\n
-        ✅ Отправлять уведомления для викторины каждый час.\n
-        ✅ Включать и выключать уведомления в любое время.\n\n
-        📚 Команды:\n
-        /quiz - Начать викторину на английском.\n
-        /quizru - Начать викторину на русском.\n
-        /quit - Закончить викторину.\n
-        /learn - Изучать новые слова.\n
-        /sub - Включить уведомления.\n
-        /unsub - Выключить уведомления.\n
-        /cmd - Получить список команд.\n\n
-        Дайте мне знать, чем я могу помочь! 😊''',
-        
-        "ko": '''👋 Word Pop Bot에 오신 것을 환영합니다 {name}님!\n\n
-        제가 할 수 있는 일입니다:\n
-        ✅ 매시간 퀴즈 알림을 보내드립니다.\n
-        ✅ 언제든지 알림을 시작하거나 중지할 수 있습니다.\n\n
-        📚 명령어:\n
-        /quiz - 영어 퀴즈 시작.\n
-        /quizru - 러시아어 퀴즈 시작.\n
-        /quit - 퀴즈 종료.\n
-        /learn - 새로운 단어 학습.\n
-        /sub - 알림 시작.\n
-        /unsub - 알림 중지.\n
-        /cmd - 사용 가능한 명령어 목록.\n\n
-        도움이 필요하시면 알려주세요! 😊'''
-    },
+    "ru": '''👋 Добро пожаловать, {name}, в бот Word Pop! 🌟\n\n
+Вот как я могу помочь вам в достижении вашихязыковых целей:\n
+✅ Отправляю периодические уведомления овикторинах, чтобы мотивировать вас и помогать вамоставаться напути к успеху.\n
+✅ Гибкие настройки для начала или остановкиуведомлений в любое время.\n\n
+📚 Доступные команды:\n
+❓ /quiz - Начать интересную и увлекательнуювикторину.\n
+🚶‍♂️ /quit - Завершить текущую сессию викторины.\n
+🌍 /setlanguage - Изменить язык обучения(например, /setlanguage korean).\n
+🔤 /learn - Расширяйте словарный запас с новымисловами.\n
+🔎 /lookup - Найдите переводы или определения ввашем личном словаре.\n
+🔔 /sub - Включить уведомления для регулярныхнапоминаний.\n
+🔕 /unsub - Отключить уведомления в любое время\n\n
+🎯 Готовы начать изучение языков? Дайте знать, какя могу вам помочь! 😊''',
+    
+    "ko": '''👋 {name}님, Word Pop Bot에 오신 것을 환영합니다! 🌟\n\n
+제가 여러분의 언어 학습 목표를 도와드릴 수 있는 방법은다음과 같습니다:\n
+✅ 주기적으로 퀴즈 알림을 보내드려 동기부여를 유지하고학습을 지속할 수 있도록 도와드립니다.\n
+✅ 알림을 언제든지 시작하거나 중지할 수 있는 유연한제어 기능.\n\n
+📚 사용 가능한 명령어:\n
+❓ /quiz - 재미있고 인터랙티브한 퀴즈를 시작합니다.\n
+🚶‍♂️ /quit - 현재 퀴즈 세션을 종료합니다.\n
+🌍 /setlanguage - 학습 언어를 변경합니다 (예: setlanguage korean).\n
+🔤 /learn - 새로운 단어로 어휘력을 확장합니다.\n
+🔎 /lookup - 개인 사전에서 번역이나 정의를 찾아봅니다\n
+🔔 /sub - 정기 알림을 활성화합니다.\n
+🔕 /unsub - 언제든지 알림을 비활성화합니다.\n\n
+🎯 언어 학습을 시작할 준비가 되셨나요? 도와드릴방법을 알려주세요! 😊'''
+},
+    
     "quiz": { 
         "en": "Which word correctly translate to Korean word: '{question}'",
         "ru": "Какое слово правильно переводится на корейский язык: '{question}'",

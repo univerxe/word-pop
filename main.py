@@ -21,7 +21,6 @@ with open('./vocab_en_ru.json', 'r', encoding="utf-8") as file:
 
 def get_message(user_id, key, **kwargs):
     lang = user_language.get(user_id, "en")
-    # print(lang)
     return messages[key].get(lang, messages[key]["en"]).format(**kwargs)
 
 user_language = {}  # {user_id: "en"}
@@ -31,7 +30,6 @@ async def cmd_start(msg: types.Message):
     user_id = msg.from_user.id
     language = msg.from_user.language_code
     language = user_language.get(user_id, language)
-    # print(language)  
     if language in ['ko', 'ko-KR', 'kor']: language = 'ko'
     elif language in ['ru', 'ru-RU', 'rus']: language = 'ru'
     user_language[user_id] = language
@@ -43,7 +41,6 @@ async def cmd_set_language(msg: types.Message):
     user_id = msg.from_user.id
     try:
         language = msg.text.split()[1].lower()[:2]
-        # print(language)
         if language in ["en", "ru", "ko"]:
             user_language[user_id] = language
             await msg.answer(get_message(user_id, "setlanguage", language=language))
@@ -83,19 +80,16 @@ async def send_quiz_question(msg, question, options):
     keyboard = InlineKeyboardMarkup(row_width=2)
     buttons = [InlineKeyboardButton(text=opt, callback_data=f"quiz_{i}") for i, opt in enumerate(options)]
     keyboard.add(*buttons)
-    lang = user_language.get(msg.from_user.id, "en")
-    if lang not in ['ko', 'ru', 'en']: lang = 'en'
-    quiz_text = messages["quiz"][lang].format(question=question)
+    quiz_text = get_message(msg.from_user.id, "quiz", question=question)
     await msg.answer(quiz_text, reply_markup=keyboard)
     
 @dp.callback_query_handler(lambda c: c.data.startswith("quiz_"))
 async def handle_quiz_callback(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
-    lang = user_language.get(user_id, "en")
     if user_id not in quiz_active:
-        await callback_query.answer(get_message(user_id, "quiz_not_active", language=lang), show_alert=True, cache_time=3)
+        await callback_query.answer(get_message(user_id, "quiz_not_active"), show_alert=True, cache_time=3)
         return
-
+    
     selected_index = int(callback_query.data.split("_")[1])
     current_quiz = quiz_state.get(user_id, {})
     selected_option = current_quiz.get("options")[selected_index]
@@ -171,20 +165,6 @@ async def unsub_user(user_id) -> str:
 async def cmd_vocab(msg: types.Message):
     formatted_text = '\n'.join([f"{k} - {e}" for k, e in list(zip(korean, english))[:]])
     await msg.answer(formatted_text)
-        
-@dp.message_handler(commands=['cmd'])
-async def cmd_help(msg: types.Message):
-    help_text = (
-        "📚 Here's a list of available commands:\n\n"
-        "/quiz - Start quiz.\n"
-        "/quit - Quit quiz.\n"
-        "/learn - Learn new words.\n"
-        "/sub - Start receiving notifications.\n"
-        "/unsub - Stop receiving notifications.\n"
-        "/cmd - Get a list of available commands.\n\n"
-        "Let me know how I can assist you! 😊"
-    )
-    await msg.answer(help_text)
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
