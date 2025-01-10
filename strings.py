@@ -139,3 +139,34 @@ Here's how I can help you achieve your language learning goals:
     }
 }
 
+bot_menu_lang = {
+    "en": [
+        ("quiz", "❓ Start quiz session"),
+        ("quit", "🚶‍♂️ Exit the current quiz session"),
+        ("setlanguage", "🌐 Change your learning language"),
+        ("learn", "📖 Expand your vocabulary with new words"),
+        ("lookup", "🔎 Find translations or definitions in your personal dictionary"),
+        ("sub", "🔔 Enable notifications for regular reminders"),
+        ("unsub", "🔕 Disable notifications whenever you want")
+    ],
+    "ru": [
+        ("quiz", "❓ Начать викторину"),
+        ("quit", "🚶‍♂️ Завершить текущую викторину"),
+        ("setlanguage", "🌐 Изменить язык"),
+        ("learn", "📖 Изучать новые слова"),
+        ("lookup", "🔎 Искать слова в вашем словаре"),
+        ("sub", "🔔 Включить уведомления"),
+        ("unsub", "🔕 Отключить уведомления")
+    ],
+    "ko": [
+        ("quiz", "❓ 퀴즈 세션 시작"),
+        ("quit", "🚶‍♂️ 퀴즈 세션 종료"),
+        ("setlanguage", "🌐 학습 언어 변경"),
+        ("learn", "📖 새로운 단어 배우기"),
+        ("lookup", "🔎 사전에서 단어 찾기"),
+        ("sub", "🔔 알림 활성화"),
+        ("unsub", "🔕 알림 비활성화")
+    ]
+}
+
+

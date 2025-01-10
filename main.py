@@ -1,10 +1,10 @@
 from aiogram import types, Dispatcher, Bot, executor
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, BotCommand
 import aiofiles
 import json, asyncio, os, random
 from dotenv import load_dotenv
 from aiogram.utils.executor import start_webhook
-from strings import messages
+from strings import messages, bot_menu_lang
 
 load_dotenv()
 # token = os.getenv('WORD_POP_TOKEN')
@@ -18,6 +18,12 @@ with open('./vocab_en_ru.json', 'r', encoding="utf-8") as file:
     korean = [kr["Korean"] for kr in data ]
     english = [en["English"] for en in data]
     russian = [ru["Russian"] for ru in data]
+    
+async def set_bot_menu(bot, user_language):
+    cmds = bot_menu_lang.get(user_language, bot_menu_lang["en"])
+    print(cmds)
+    bot_cmds = [BotCommand(command=cmd[0], description=cmd[1]) for cmd in cmds]
+    await bot.set_my_commands(bot_cmds)
 
 def get_message(user_id, key, **kwargs):
     lang = user_language.get(user_id, "en")
@@ -34,6 +40,7 @@ async def cmd_start(msg: types.Message):
     elif language in ['ru', 'ru-RU', 'rus']: language = 'ru'
     user_language[user_id] = language
     welcome_text = get_message(user_id, "welcome", name=msg.from_user.first_name)
+    # await set_bot_menu(bot, user_language[user_id])
     await msg.answer(welcome_text)
 
 @dp.message_handler(commands=['setlanguage'])
@@ -43,6 +50,7 @@ async def cmd_set_language(msg: types.Message):
         language = msg.text.split()[1].lower()[:2]
         if language in ["en", "ru", "ko"]:
             user_language[user_id] = language
+            # await set_bot_menu(bot, user_language[user_id])
             await msg.answer(get_message(user_id, "setlanguage"))
         else:
             user_language[user_id] = user_language.get(user_id, "en")
@@ -50,6 +58,8 @@ async def cmd_set_language(msg: types.Message):
     except IndexError:
         user_language[user_id] = user_language.get(user_id, "en")
         await msg.answer(get_message(user_id, "invalid_lang_idx"))
+    finally:
+        await set_bot_menu(bot, user_language[user_id])
 
 quiz_active = {}  # {user_id: True}
 quiz_state = {}  # {user_id: {question: "", answer: "", options: [], lang: ""}}
